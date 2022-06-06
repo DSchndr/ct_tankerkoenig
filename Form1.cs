@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace Tankerkönig
@@ -13,14 +14,26 @@ namespace Tankerkönig
     public partial class Form1 : Form
     {
         Steuerung dieSteuerung;
+        System.Timers.Timer aktTimer = new System.Timers.Timer();
+
         public Form1()
         {
             InitializeComponent();
             dieSteuerung = new Steuerung(this);
-            Init();
+            GUIInit();
+            InitTimer();
         }
 
-        private void Init()
+        private void InitTimer()
+        {
+            aktTimer.Elapsed += new ElapsedEventHandler(aktTimerEvent);
+            aktTimer.AutoReset = true;
+            aktTimer.Interval = getTrackBarAktTime();
+            aktTimer.SynchronizingObject = this;
+        }
+
+        //GUI Elemente initialisieren
+        private void GUIInit()
         {
             dataGridView1.AutoGenerateColumns = true;
 
@@ -120,7 +133,7 @@ namespace Tankerkönig
 
         private void checkBoxAktualisieren_CheckedChanged(object sender, EventArgs e)
         {
-            dieSteuerung.setAktualisieren(checkBoxAktualisieren.Checked);
+            setAktualisieren(checkBoxAktualisieren.Checked);
         }
 
         private void setAktLabel()
@@ -131,6 +144,38 @@ namespace Tankerkönig
         private void trackBarAktTime_Scroll(object sender, EventArgs e)
         {
             setAktLabel();
+            NewAktTime();
+        }
+        public int getTrackBarAktTime()
+        {
+            return trackBarAktTime.Value*1000*60;
+        }
+
+        private void aktTimerEvent(object o, ElapsedEventArgs e)
+        {
+            dieSteuerung.AktualisiereTable();
+            Console.WriteLine("Timer event fired! Aktualisiere...");
+        }
+        public void NewAktTime()
+        {
+            aktTimer.Interval = getTrackBarAktTime();
+        }
+        public void setAktualisieren(bool isChecked)
+        {
+            if (isChecked)
+            {
+                aktTimer.Start();
+            }
+            else
+            {
+                aktTimer.Stop();
+            }
+        }
+
+        private void buttonFavTankeLog_Click(object sender, EventArgs e)
+        {
+            DatenViewer datenViewer = new DatenViewer();
+            datenViewer.Show();
         }
     }
 }

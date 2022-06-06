@@ -12,14 +12,13 @@ namespace Tankerkönig
     {
         TankerkoenigAPI dieAPI;
         Daten dieDaten = new Daten();
+        Datenbank dieDatenbank = new Datenbank();
         Form1 dieGUI;
-        System.Timers.Timer aktTimer = new System.Timers.Timer();
 
         public Steuerung(Form1 form)
         {
             dieGUI = form;
             dieAPI = new TankerkoenigAPI();
-            aktTimer.Elapsed += new ElapsedEventHandler(aktTimerEvent);
         }
 
         public void ShowMapForSelectedTanke()
@@ -76,10 +75,10 @@ namespace Tankerkönig
                 return;
             }
 
-            dieDaten.stations = _stations;
-            dieGUI.getTable().DataSource = dieDaten.stations;
+            dieDaten.setStations(_stations);
+            dieGUI.getTable().DataSource = dieDaten.getStations();
 
-            foreach(string favid in dieDaten.Favoriten_ID)
+            foreach(string favid in dieDaten.getFavoriten_ID())
             {
                 try
                 {
@@ -88,23 +87,11 @@ namespace Tankerkönig
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Failed to add element");
+                    MessageBox.Show("Failed to add element, increase Radius...");
                 }
             }
-            dieDaten.favstations = _favstations;
-            dieGUI.getFavTable().DataSource = dieDaten.favstations;
-        }
-
-        public void setAktualisieren(bool isChecked)
-        {
-            if(isChecked)
-            {
-                
-            }
-            else
-            {
-
-            }
+            dieDaten.setFavStations(_favstations);
+            dieGUI.getFavTable().DataSource = dieDaten.getFavStations();
         }
 
         public void AddToFav()
@@ -128,17 +115,19 @@ namespace Tankerkönig
             //Daten vorbereiten
             string id = Convert.ToString(selectedRow.Cells["id"].Value);
 
-            if(dieDaten.Favoriten_ID.Contains(id))
+            List<String> favoriten_ID = dieDaten.getFavoriten_ID();
+            if (favoriten_ID.Contains(id))
             {
                 MessageBox.Show("Tankstelle schon in Liste");
                 return;
             }
-            if(dieDaten.Favoriten_ID.Count > 10)
+            if(favoriten_ID.Count > 10)
             {
                 MessageBox.Show("Schon 10 Tankstellen in der Liste, bitte eine Entfernen...");
                 return;
             }
-            dieDaten.Favoriten_ID.Add(id);
+            favoriten_ID.Add(id);
+            dieDaten.setFavoriten_ID(favoriten_ID);
             AktualisiereTable();
         }
         public void RemoveFromFav()
@@ -161,12 +150,10 @@ namespace Tankerkönig
             DataGridViewRow selectedRow = pDataGrid.Rows[selectedrowindex];
             //Daten vorbereiten
             string id = Convert.ToString(selectedRow.Cells["id"].Value);
-            dieDaten.Favoriten_ID.Remove(id);
+            List<string> fav = dieDaten.getFavoriten_ID();
+            fav.Remove(id);
+            dieDaten.setFavoriten_ID(fav);
             AktualisiereTable();
-        }
-        private static void aktTimerEvent(object o, ElapsedEventArgs e)
-        {
-            //AktualisiereTable();
         }
     }
 }

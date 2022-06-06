@@ -61,9 +61,10 @@ namespace Tankerkönig
             this.buttonAddToFav = new System.Windows.Forms.Button();
             this.dataGridViewFav = new System.Windows.Forms.DataGridView();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.trackBarAktTime = new System.Windows.Forms.TrackBar();
-            this.checkBoxAktualisieren = new System.Windows.Forms.CheckBox();
             this.labelAktTime = new System.Windows.Forms.Label();
+            this.checkBoxAktualisieren = new System.Windows.Forms.CheckBox();
+            this.trackBarAktTime = new System.Windows.Forms.TrackBar();
+            this.buttonFavTankeLog = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarRad)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -353,6 +354,7 @@ namespace Tankerkönig
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.buttonFavTankeLog);
             this.groupBox6.Controls.Add(this.buttonRemoveFromFav);
             this.groupBox6.Controls.Add(this.buttonAddToFav);
             this.groupBox6.Controls.Add(this.dataGridViewFav);
@@ -379,7 +381,7 @@ namespace Tankerkönig
             this.buttonAddToFav.Name = "buttonAddToFav";
             this.buttonAddToFav.Size = new System.Drawing.Size(135, 23);
             this.buttonAddToFav.TabIndex = 1;
-            this.buttonAddToFav.Text = "Zu Favoriten Hinzufügen";
+            this.buttonAddToFav.Text = " Zu Favoriten Hinzufügen";
             this.buttonAddToFav.UseVisualStyleBackColor = true;
             this.buttonAddToFav.Click += new System.EventHandler(this.buttonAddToFav_Click);
             // 
@@ -403,16 +405,14 @@ namespace Tankerkönig
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Aktualisierung";
             // 
-            // trackBarAktTime
+            // labelAktTime
             // 
-            this.trackBarAktTime.Location = new System.Drawing.Point(7, 43);
-            this.trackBarAktTime.Maximum = 60;
-            this.trackBarAktTime.Minimum = 5;
-            this.trackBarAktTime.Name = "trackBarAktTime";
-            this.trackBarAktTime.Size = new System.Drawing.Size(159, 45);
-            this.trackBarAktTime.TabIndex = 0;
-            this.trackBarAktTime.Value = 5;
-            this.trackBarAktTime.Scroll += new System.EventHandler(this.trackBarAktTime_Scroll);
+            this.labelAktTime.AutoSize = true;
+            this.labelAktTime.Location = new System.Drawing.Point(49, 86);
+            this.labelAktTime.Name = "labelAktTime";
+            this.labelAktTime.Size = new System.Drawing.Size(78, 13);
+            this.labelAktTime.TabIndex = 2;
+            this.labelAktTime.Text = "Alle xx Minuten";
             // 
             // checkBoxAktualisieren
             // 
@@ -425,14 +425,26 @@ namespace Tankerkönig
             this.checkBoxAktualisieren.UseVisualStyleBackColor = true;
             this.checkBoxAktualisieren.CheckedChanged += new System.EventHandler(this.checkBoxAktualisieren_CheckedChanged);
             // 
-            // labelAktTime
+            // trackBarAktTime
             // 
-            this.labelAktTime.AutoSize = true;
-            this.labelAktTime.Location = new System.Drawing.Point(49, 86);
-            this.labelAktTime.Name = "labelAktTime";
-            this.labelAktTime.Size = new System.Drawing.Size(78, 13);
-            this.labelAktTime.TabIndex = 2;
-            this.labelAktTime.Text = "Alle xx Minuten";
+            this.trackBarAktTime.Location = new System.Drawing.Point(7, 43);
+            this.trackBarAktTime.Maximum = 60;
+            this.trackBarAktTime.Minimum = 5;
+            this.trackBarAktTime.Name = "trackBarAktTime";
+            this.trackBarAktTime.Size = new System.Drawing.Size(159, 45);
+            this.trackBarAktTime.TabIndex = 0;
+            this.trackBarAktTime.Value = 5;
+            this.trackBarAktTime.Scroll += new System.EventHandler(this.trackBarAktTime_Scroll);
+            // 
+            // buttonFavTankeLog
+            // 
+            this.buttonFavTankeLog.Location = new System.Drawing.Point(290, 13);
+            this.buttonFavTankeLog.Name = "buttonFavTankeLog";
+            this.buttonFavTankeLog.Size = new System.Drawing.Size(75, 23);
+            this.buttonFavTankeLog.TabIndex = 3;
+            this.buttonFavTankeLog.Text = "Log";
+            this.buttonFavTankeLog.UseVisualStyleBackColor = true;
+            this.buttonFavTankeLog.Click += new System.EventHandler(this.buttonFavTankeLog_Click);
             // 
             // Form1
             // 
@@ -504,6 +516,7 @@ namespace Tankerkönig
         private System.Windows.Forms.Label labelAktTime;
         private System.Windows.Forms.CheckBox checkBoxAktualisieren;
         private System.Windows.Forms.TrackBar trackBarAktTime;
+        private System.Windows.Forms.Button buttonFavTankeLog;
     }
 }
 
